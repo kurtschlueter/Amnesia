@@ -23,6 +23,7 @@ export default class Map extends Component {
 
   componentDidMount() {
     this.currentLocation()
+    // this.startTracking()
   }
 
   componentWillUnmount() {
@@ -86,9 +87,6 @@ export default class Map extends Component {
         </TouchableHighlight>
       )
     } else {
-      // this.setState({
-      //   memoryRunning: false
-      // });
       return (
         <TouchableHighlight style={styles.buttonLeft} onPress={() => this.endMemory()}>
           <Text>End Memory</Text>
@@ -99,8 +97,8 @@ export default class Map extends Component {
 
   render() {
 
-    console.log(this.state.routeCoordinates)
-    console.log(this.watchID)
+    // console.log(this.state.routeCoordinates)
+    // console.log(this.watchID)
     return (
       <View style={styles.container}>
         <MapView style={styles.map}

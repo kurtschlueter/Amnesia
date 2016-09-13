@@ -7,8 +7,13 @@ import {
 
 import HomePage from './views/homePage';
 // import Firebase from 'firebase';
-
+// import Test from './javascripts/geolocation';
 class Amnesia extends Component {
+
+  componentDidMount(){
+    // console.log('yas')
+    // setInterval.apply(console.log('cat'),3000)
+  }
 
   renderScene(route, navigator){
     if(route.name == 'Map') {
