@@ -5,20 +5,21 @@ import {
   Navigator
 } from 'react-native';
 
-import Map from './views/map';
+import HomePage from './views/homePage';
+// import Firebase from 'firebase';
 
 class Amnesia extends Component {
   render() {
-    const routes = [
-      {title: 'Map', index: 0},
-      {title: 'Second Scene', index: 1},
-    ];
+    // const routes = [
+    //   {title: 'Home', index: 0},
+    //   {title: 'Map', index: 1},
+    // ];
 
     return (
       <Navigator
-        initialRoute={routes[0]}
+        initialRoute={{name: 'Home', component: HomePage}}
         renderScene={(route, navigator) =>
-          <Map />
+          React.createElement(route.component, { navigator })
         }
       />
     )
