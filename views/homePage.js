@@ -10,9 +10,13 @@ import Map from './map';
 
 export default class HomePage extends Component {
 
-  startMemory() {
+  goToMap() {
     this.props.navigator.push({
-      component: Map
+      component: Map,
+      name: 'Map',
+      passProps: {
+        refresh: true
+      }
     })
   }
 
@@ -23,8 +27,8 @@ export default class HomePage extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TouchableHighlight style={styles.button} onPress={() => this.startMemory()}>
-          <Text>Start Memory</Text>
+        <TouchableHighlight style={styles.button} onPress={() => this.goToMap()}>
+          <Text>Map</Text>
         </TouchableHighlight>
         <TouchableHighlight style={styles.button} onPress={() => this.pastMemories()}>
           <Text>Past Memories</Text>

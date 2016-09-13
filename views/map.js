@@ -10,20 +10,43 @@ import MapView from 'react-native-maps';
 
 export default class Map extends Component {
 
-  state = {
-    routeCoordinates: [],
-    currentPosition: 'unknown',
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      memoryRunning: false,
+      routeCoordinates: [],
+      currentPosition: 'unknown',
+    }
+  }
 
   watchID: ?number = null;
 
   componentDidMount() {
+    this.currentLocation()
+  }
+
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchID);
+  }
+
+  currentLocation() {
     navigator.geolocation.getCurrentPosition(
-      (position) => {},
+      (position) => {
+        const cp = {
+          long: parseFloat(position.coords.longitude),
+          lat: parseFloat(position.coords.latitude)
+        };
+        this.setState({currentPosition: cp});
+      },
       (error) => alert(error.message),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 5000}
     );
+  }
+
+  startTracking() {
+    navigator.geolocation.clearWatch(this.watchID);
     this.watchID = navigator.geolocation.watchPosition((position) => {
+      console.log('yes')
       const cp = {
         long: parseFloat(position.coords.longitude),
         lat: parseFloat(position.coords.latitude)
@@ -35,22 +58,52 @@ export default class Map extends Component {
     });
   }
 
-  componentWillUnmount() {
-    navigator.geolocation.clearWatch(this.watchID);
-  }
-
-  componentDidUpdate(){
-    console.log(this.state.routeCoordinates);
-  }
-
   endMemory() {
-    console.log('end')
-    this.props.navigator.popN(1)
+    navigator.geolocation.clearWatch(this.watchID);
+    this.setState({
+      routeCoordinates: [],
+      memoryRunning: false
+    });
   }
+
+  startMemory() {
+    navigator.geolocation.clearWatch(this.watchID);
+    this.setState({
+      memoryRunning: true
+    });
+    this.startTracking()
+  }
+
+  menu() {
+    this.props.navigator.popN(1);
+  }
+
+  memoryStatus() {
+    if(this.state.memoryRunning == false) {
+      return (
+        <TouchableHighlight style={styles.buttonLeft} onPress={() => this.startMemory()}>
+          <Text>Start Memory</Text>
+        </TouchableHighlight>
+      )
+    } else {
+      // this.setState({
+      //   memoryRunning: false
+      // });
+      return (
+        <TouchableHighlight style={styles.buttonLeft} onPress={() => this.endMemory()}>
+          <Text>End Memory</Text>
+        </TouchableHighlight>
+      )
+    }
+  }
+
   render() {
+
+    console.log(this.state.routeCoordinates)
+    console.log(this.watchID)
     return (
       <View style={styles.container}>
-        <MapView style={{position:'absolute', top: 20, bottom: 40, right: 0, left: 0}}
+        <MapView style={styles.map}
           showsUserLocation={true}
           followUserLocation={true}
           region={{
@@ -60,17 +113,19 @@ export default class Map extends Component {
             longitudeDelta: 0.1,
           }}
         >
-        <MapView.Polyline
-          coordinates= {this.state.routeCoordinates}
-          strokeColor='#19B5FE'
-          fillColor="'#19B5FE'"
-          strokeWidth={5}
-        />
+          <MapView.Polyline
+            coordinates= {this.state.routeCoordinates}
+            strokeColor='#19B5FE'
+            fillColor="'#19B5FE'"
+            strokeWidth={5}
+          />
         </MapView>
-        <TouchableHighlight style={styles.button} onPress={() => this.endMemory()}>
-          <Text>End Memory</Text>
+        <TouchableHighlight style={styles.buttonRight} onPress={() => this.menu()}>
+          <Text>Menu</Text>
         </TouchableHighlight>
+        {this.memoryStatus()}
       </View>
+
     );
   }
 }
@@ -86,19 +141,27 @@ const styles = StyleSheet.create({
   map: {
     position:'absolute',
     top: 20,
-    bottom: 40,
+    bottom: 0,
     right: 0,
     left: 0
   },
-  button: {
-    bottom: 0,
-    right: 0,
-    left: 0,
-    position:'absolute',
-    paddingHorizontal: 12,
-    paddingVertical: 12,
-    alignItems: 'center',
-    backgroundColor: 'rgba(236,64,122,0.7)',
-  },
 
+  buttonLeft: {
+    position: 'absolute',
+    top: 25,
+    right: 5,
+    backgroundColor: 'rgba(236,64,122,0.7)',
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    borderRadius: 20,
+  },
+  buttonRight: {
+    position: 'absolute',
+    top: 25,
+    left: 5,
+    backgroundColor: 'rgba(236,64,122,0.7)',
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    borderRadius: 20,
+  }
 });
