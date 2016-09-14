@@ -17,9 +17,9 @@ class Amnesia extends Component {
 
   renderScene(route, navigator){
     if(route.name == 'Map') {
-      return <route.component navigator={navigator} {...route.passProps}/>;
+      return <route.component navigator={navigator}/>;
     } else {
-      return <route.component navigator={navigator} {...route.passProps}/>;
+      return <route.component navigator={navigator}/>;
     }
   }
 
@@ -32,4 +32,5 @@ class Amnesia extends Component {
     )
   }
 }
+
 AppRegistry.registerComponent('Amnesia', () => Amnesia);

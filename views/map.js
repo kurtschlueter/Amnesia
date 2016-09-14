@@ -22,6 +22,10 @@ export default class Map extends Component {
   watchID: ?number = null;
 
   componentDidMount() {
+    console.log('-----------------didMAP-----------------')
+    // console.log(this.props.trackingCoords)
+    // this.props.trackingCoords = 'cat'
+    // console.log(this.props.trackingCoords)
     this.currentLocation()
     // this.startTracking()
   }
@@ -37,6 +41,7 @@ export default class Map extends Component {
           long: parseFloat(position.coords.longitude),
           lat: parseFloat(position.coords.latitude)
         };
+        // this.props.yes
         this.setState({currentPosition: cp});
       },
       (error) => alert(error.message),
@@ -76,7 +81,7 @@ export default class Map extends Component {
   }
 
   menu() {
-    this.props.navigator.popN(1);
+    this.props.navigator.jumpBack(0) ;
   }
 
   memoryStatus() {
@@ -97,7 +102,7 @@ export default class Map extends Component {
 
   render() {
 
-    // console.log(this.state.routeCoordinates)
+    console.log(this.state.routeCoordinates)
     // console.log(this.watchID)
     return (
       <View style={styles.container}>
