@@ -64,6 +64,7 @@ export default class Map extends Component {
     navigator.geolocation.clearWatch(this.watchID);
     this.setState({
       routeCoordinates: [],
+      memoryRunning: false
     });
   }
 
