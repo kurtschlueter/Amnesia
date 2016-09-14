@@ -11,18 +11,15 @@ import Map from './map';
 export default class HomePage extends Component {
 
   componentDidMount() {
-    // console.log('------------------didHOME-------------------')
+    console.log('------------------didHOME-------------------')
   }
 
   goToMap() {
-    this.props.navigator.push({
-      component: Map,
-      name: 'Map',
-    })
+    this.props.navigator.jumpForward(1);
   }
 
-  jumpToMap() {
-    this.props.navigator.jumpForward(1)
+  pastMemories() {
+    console.log('s');
   }
 
   render() {
@@ -31,8 +28,8 @@ export default class HomePage extends Component {
         <TouchableHighlight style={styles.button} onPress={() => this.goToMap()}>
           <Text>Map</Text>
         </TouchableHighlight>
-        <TouchableHighlight style={styles.button} onPress={() => this.jumpToMap()}>
-          <Text>Jump to Map</Text>
+        <TouchableHighlight style={styles.button} onPress={() => this.pastMemories()}>
+          <Text>Past Memories</Text>
         </TouchableHighlight>
       </View>
     );

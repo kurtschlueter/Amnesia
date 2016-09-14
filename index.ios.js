@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 
 import HomePage from './views/homePage';
+import Map from './views/map';
 // import Firebase from 'firebase';
 // import Test from './javascripts/geolocation';
 class Amnesia extends Component {
@@ -16,17 +17,19 @@ class Amnesia extends Component {
   }
 
   renderScene(route, navigator){
-    if(route.name == 'Map') {
-      return <route.component navigator={navigator}/>;
-    } else {
-      return <route.component navigator={navigator}/>;
-    }
+    return <route.component navigator={navigator}/>;
   }
 
   render() {
+
+    const routes = [
+      {component: HomePage},
+      {component: Map},
+    ];
     return (
       <Navigator
-        initialRoute={{name: 'Home', component: HomePage}}
+        initialRoute={routes[0]}
+        initialRouteStack={routes}
         renderScene={this.renderScene}
       />
     )

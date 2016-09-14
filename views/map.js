@@ -23,11 +23,7 @@ export default class Map extends Component {
 
   componentDidMount() {
     console.log('-----------------didMAP-----------------')
-    // console.log(this.props.trackingCoords)
-    // this.props.trackingCoords = 'cat'
-    // console.log(this.props.trackingCoords)
     this.currentLocation()
-    // this.startTracking()
   }
 
   componentWillUnmount() {
@@ -68,7 +64,6 @@ export default class Map extends Component {
     navigator.geolocation.clearWatch(this.watchID);
     this.setState({
       routeCoordinates: [],
-      memoryRunning: false
     });
   }
 
@@ -81,7 +76,7 @@ export default class Map extends Component {
   }
 
   menu() {
-    this.props.navigator.jumpBack(0) ;
+    this.props.navigator.jumpBack(1) ;
   }
 
   memoryStatus() {
