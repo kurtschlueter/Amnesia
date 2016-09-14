@@ -14,8 +14,6 @@ class Amnesia extends Component {
 
   watchID: ?number = null;
 
-  mixins: [React.addons.LinkedStateMixin]
-
   constructor(props) {
     super(props);
     this.state = {
@@ -25,18 +23,15 @@ class Amnesia extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log('----------shouldComponentUpdate---------');
+    console.log('----------shouldIndex-------------------')
+    console.log(nextState.currentPosition)
+    console.log(this.state.currentPosition)
     return nextState.currentPosition !== this.state.currentPosition;
-    // return false
   }
 
   componentDidMount(){
-    var xxx = 's';
-    this.currentLocation()
+    // this.currentLocation()
     // this.startTracking()
-    console.log('yas')
-    // console.log(this.state.currentPosition)
-    // setInterval.apply(console.log('cat'),3000)
   }
   currentLocation() {
 
@@ -46,20 +41,16 @@ class Amnesia extends Component {
           long: parseFloat(position.coords.longitude),
           lat: parseFloat(position.coords.latitude)
         };
-        // this.linkState('currentPosition');
         this.setState({currentPosition: cp})
-        // console.log(this.state.currentPosition)
       },
       (error) => alert(error.message),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 5000}
     );
-
   }
 
   startTracking() {
     navigator.geolocation.clearWatch(this.watchID);
     this.watchID = navigator.geolocation.watchPosition((position) => {
-      // console.log('yes')
       const cp = {
         long: parseFloat(position.coords.longitude),
         lat: parseFloat(position.coords.latitude)
@@ -80,10 +71,8 @@ class Amnesia extends Component {
   // }
 
   render() {
-    console.log(this.state.currentPosition)
     return (
-      // <HomePage currentPosition={this.state.currentPosition} />
-      <Text> dddfffffffffffffffd</Text>
+      <HomePage currentPosition={this.state.currentPosition} routeCoordinates={this.state.routeCoordinates} startTracking={this.startTracking.bind(this)} currentLocation={this.currentLocation.bind(this)}/>
     )
   }
 }

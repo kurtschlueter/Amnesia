@@ -19,11 +19,27 @@ export default class Map extends Component {
   //   }
   // }
 
+  currentLocationCallback2() {
+    this.props.currentLocation()
+  }
+
+  startTrackingCallback2() {
+    this.props.startTracking()
+  }
+
   watchID: ?number = null;
 
   componentDidMount() {
-    currentLocation()
+    this.currentLocationCallback2()
+
     // this.startTracking()
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('----------shouldMap----------')
+    console.log(nextProps.currentPosition)
+    console.log(this.props.currentPosition)
+    return nextProps.currentPosition !== this.props.currentPosition;
   }
 
   componentWillUnmount() {
@@ -44,10 +60,11 @@ export default class Map extends Component {
     //   memoryRunning: true
     // });
     // this.startTracking()
+    this.startTrackingCallback2()
   }
 
   menu() {
-    this.props.navigator.popN(1);
+    // this.props.navigator.popN(1);
   }
 
   memoryStatus() {
@@ -67,8 +84,8 @@ export default class Map extends Component {
   }
 
   render() {
-
-    // console.log(this.state.routeCoordinates)
+    console.log('--------map-----------')
+    console.log(this.props.currentPosition)
     // console.log(this.watchID)
     return (
       <View style={styles.container}>
@@ -76,14 +93,14 @@ export default class Map extends Component {
           showsUserLocation={true}
           followUserLocation={true}
           region={{
-            latitude: this.state.currentPosition.lat,
-            longitude: this.state.currentPosition.long,
+            latitude: this.props.currentPosition.lat,
+            longitude: this.props.currentPosition.long,
             latitudeDelta: 0.1,
             longitudeDelta: 0.1,
           }}
         >
           <MapView.Polyline
-            coordinates= {this.state.routeCoordinates}
+            coordinates= {this.props.routeCoordinates}
             strokeColor='#19B5FE'
             fillColor="'#19B5FE'"
             strokeWidth={5}

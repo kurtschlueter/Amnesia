@@ -10,36 +10,73 @@ import Map from './map';
 
 export default class HomePage extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      view: 'home'
+    }
+  }
+
+  currentLocationCallback1() {
+    this.props.currentLocation()
+  }
+
+  startTrackingCallback1() {
+    this.props.startTracking()
+  }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log('----------shouldHome-------------------')
+  //   console.log(nextProps.currentPosition)
+  //   console.log(this.props.currentPosition)
+  //   return nextProps.currentPosition !== this.props.currentPosition;
+  // }
+
   componentDidMount(){
-    // console.log('dddddddddddd')
+    // this.currentLocationCallback1()
+    // this.startTrackingCallback1()
     // console.log(this.props.currentPosition)
+  }
+
+  setMapState(){
+    this.setState({view: 'map'})
   }
   goToMap() {
-    this.props.navigator.push({
-      component: Map,
-      name: 'Map',
-      passProps: {
-        refresh: true
-      }
-    })
+      return (
+        <Map currentPosition={this.props.currentPosition} routeCoordinates={this.props.routeCoordinates} startTracking={this.startTrackingCallback1.bind(this)} currentLocation={this.currentLocationCallback1.bind(this)}/>
+      )
   }
 
-  pastMemories() {
-    console.log('yes')
-  }
-
-  render() {
-    // console.log(this.props.currentPosition)
+  stayHome() {
     return (
       <View style={styles.container}>
-        <TouchableHighlight style={styles.button} onPress={() => this.goToMap()}>
+        <TouchableHighlight style={styles.button} onPress={() => this.setMapState()}>
           <Text>Map</Text>
         </TouchableHighlight>
         <TouchableHighlight style={styles.button} onPress={() => this.pastMemories()}>
           <Text>Past Memories</Text>
         </TouchableHighlight>
       </View>
-    );
+    )
+  }
+  pastMemories() {
+    console.log('yes')
+  }
+
+  render() {
+    if(this.state.view == "home"){
+      return(
+        <View>
+          {this.stayHome()}
+        </View>
+      )
+    } else {
+      return(
+        <View>
+          {this.goToMap()}
+        </View>
+      )
+    }
   }
 }
 
