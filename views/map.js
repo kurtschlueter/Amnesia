@@ -10,69 +10,40 @@ import MapView from 'react-native-maps';
 
 export default class Map extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      memoryRunning: false,
-      routeCoordinates: [],
-      currentPosition: 'unknown',
-    }
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     memoryRunning: false,
+  //     routeCoordinates: [],
+  //     currentPosition: 'unknown',
+  //   }
+  // }
 
   watchID: ?number = null;
 
   componentDidMount() {
-    this.currentLocation()
+    currentLocation()
     // this.startTracking()
   }
 
   componentWillUnmount() {
-    navigator.geolocation.clearWatch(this.watchID);
-  }
-
-  currentLocation() {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const cp = {
-          long: parseFloat(position.coords.longitude),
-          lat: parseFloat(position.coords.latitude)
-        };
-        this.setState({currentPosition: cp});
-      },
-      (error) => alert(error.message),
-      {enableHighAccuracy: true, timeout: 20000, maximumAge: 5000}
-    );
-  }
-
-  startTracking() {
-    navigator.geolocation.clearWatch(this.watchID);
-    this.watchID = navigator.geolocation.watchPosition((position) => {
-      console.log('yes')
-      const cp = {
-        long: parseFloat(position.coords.longitude),
-        lat: parseFloat(position.coords.latitude)
-      }
-      this.setState({
-        routeCoordinates: this.state.routeCoordinates.concat({latitude: cp.lat, longitude: cp.long}),
-        currentPosition: cp
-      });
-    });
+    // navigator.geolocation.clearWatch(this.watchID);
   }
 
   endMemory() {
-    navigator.geolocation.clearWatch(this.watchID);
-    this.setState({
-      routeCoordinates: [],
-      memoryRunning: false
-    });
+    // navigator.geolocation.clearWatch(this.watchID);
+    // this.setState({
+    //   routeCoordinates: [],
+    //   memoryRunning: false
+    // });
   }
 
   startMemory() {
-    navigator.geolocation.clearWatch(this.watchID);
-    this.setState({
-      memoryRunning: true
-    });
-    this.startTracking()
+    // navigator.geolocation.clearWatch(this.watchID);
+    // this.setState({
+    //   memoryRunning: true
+    // });
+    // this.startTracking()
   }
 
   menu() {
@@ -80,19 +51,19 @@ export default class Map extends Component {
   }
 
   memoryStatus() {
-    if(this.state.memoryRunning == false) {
+    // if(this.state.memoryRunning == false) {
       return (
         <TouchableHighlight style={styles.buttonLeft} onPress={() => this.startMemory()}>
           <Text>Start Memory</Text>
         </TouchableHighlight>
       )
-    } else {
-      return (
-        <TouchableHighlight style={styles.buttonLeft} onPress={() => this.endMemory()}>
-          <Text>End Memory</Text>
-        </TouchableHighlight>
-      )
-    }
+    // } else {
+    //   return (
+    //     <TouchableHighlight style={styles.buttonLeft} onPress={() => this.endMemory()}>
+    //       <Text>End Memory</Text>
+    //     </TouchableHighlight>
+    //   )
+    // }
   }
 
   render() {

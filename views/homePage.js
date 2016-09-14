@@ -10,6 +10,10 @@ import Map from './map';
 
 export default class HomePage extends Component {
 
+  componentDidMount(){
+    // console.log('dddddddddddd')
+    // console.log(this.props.currentPosition)
+  }
   goToMap() {
     this.props.navigator.push({
       component: Map,
@@ -25,6 +29,7 @@ export default class HomePage extends Component {
   }
 
   render() {
+    // console.log(this.props.currentPosition)
     return (
       <View style={styles.container}>
         <TouchableHighlight style={styles.button} onPress={() => this.goToMap()}>
