@@ -18,9 +18,6 @@ export default class HomePage extends Component {
     this.props.navigator.push({
       component: Map,
       name: 'Map',
-      passProps: {
-        routeCoordinates: this.state.routeCoordinates
-      }
     })
   }
 
@@ -35,7 +32,7 @@ export default class HomePage extends Component {
           <Text>Map</Text>
         </TouchableHighlight>
         <TouchableHighlight style={styles.button} onPress={() => this.jumpToMap()}>
-          <Text>Past Memories</Text>
+          <Text>Jump to Map</Text>
         </TouchableHighlight>
       </View>
     );
