@@ -33,12 +33,13 @@ export default class Map extends Component {
   currentLocation() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        const cp = {
-          long: parseFloat(position.coords.longitude),
-          lat: parseFloat(position.coords.latitude)
-        };
-        // this.props.yes
-        this.setState({currentPosition: cp});
+        this.setState({
+          currentPosition: {
+            latitude: parseFloat(position.coords.latitude),
+            longitude: parseFloat(position.coords.longitude),
+            timeStamp: position.timestamp
+          }
+        });
       },
       (error) => alert(error.message),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 5000}
@@ -48,13 +49,13 @@ export default class Map extends Component {
   startTracking() {
     navigator.geolocation.clearWatch(this.watchID);
     this.watchID = navigator.geolocation.watchPosition((position) => {
-      console.log('yes')
       const cp = {
-        long: parseFloat(position.coords.longitude),
-        lat: parseFloat(position.coords.latitude)
+        longitude: parseFloat(position.coords.longitude),
+        latitude: parseFloat(position.coords.latitude),
+        timeStamp: position.timestamp
       }
       this.setState({
-        routeCoordinates: this.state.routeCoordinates.concat({latitude: cp.lat, longitude: cp.long}),
+        routeCoordinates: this.state.routeCoordinates.concat(cp),
         currentPosition: cp
       });
     });
@@ -97,17 +98,16 @@ export default class Map extends Component {
   }
 
   render() {
-
-    console.log(this.state.routeCoordinates)
-    // console.log(this.watchID)
+    // console.log('--------------------------')
+    // console.log(this.state.currentPosition.timeStamp)
     return (
       <View style={styles.container}>
         <MapView style={styles.map}
           showsUserLocation={true}
           followUserLocation={true}
           region={{
-            latitude: this.state.currentPosition.lat,
-            longitude: this.state.currentPosition.long,
+            latitude: this.state.currentPosition.latitude,
+            longitude: this.state.currentPosition.longitude,
             latitudeDelta: 0.1,
             longitudeDelta: 0.1,
           }}
