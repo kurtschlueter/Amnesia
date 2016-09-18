@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 
 import MapView from 'react-native-maps';
+import RealmObjects from '../realm/objects';
 
 export default class Map extends Component {
 
@@ -23,6 +24,7 @@ export default class Map extends Component {
 
   componentDidMount() {
     console.log('-----------------didMAP-----------------')
+
     this.currentLocation()
   }
 
@@ -62,6 +64,7 @@ export default class Map extends Component {
   }
 
   endMemory() {
+    RealmObjects.saveMemory(this.state.routeCoordinates)
     navigator.geolocation.clearWatch(this.watchID);
     this.setState({
       routeCoordinates: [],
