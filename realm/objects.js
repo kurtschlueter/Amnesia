@@ -2,8 +2,7 @@ export default class RealmObjects {}
 RealmObjects.MemorySchema = {
   name: 'Memory',
   properties: {
-    title: 'string',
-    id: 'int',
+    description: 'string',
     coords: {type: 'list', objectType: 'Coordinate'},
   }
 }
@@ -17,11 +16,13 @@ RealmObjects.CoordinateSchema = {
   }
 }
 
-RealmObjects.saveMemory = function(coordinates) {
+RealmObjects.saveMemory = function(coordinates, description) {
   console.log('---------------realm write-------------')
+  console.log(description)
+  console.log(coordinates)
     realm.write(() => {
       let memory = realm.create('Memory', {
-        title: 'ssssssssssssss',
+        description: description,
         id: 1
       });
       let coordList = memory.coords

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   Text,
   View,
+  AlertIOS,
   TouchableHighlight,
   StyleSheet,
 } from 'react-native';
@@ -64,7 +65,15 @@ export default class Map extends Component {
   }
 
   endMemory() {
-    RealmObjects.saveMemory(this.state.routeCoordinates)
+    const tempRoute = this.state.routeCoordinates
+    AlertIOS.prompt(
+      'Enter description to save',
+      null,
+      [
+        {text: 'Save', onPress: description => RealmObjects.saveMemory(tempRoute, description)},
+        {text: 'Erase', style: 'cancel'},
+      ],
+    );
     navigator.geolocation.clearWatch(this.watchID);
     this.setState({
       routeCoordinates: [],
