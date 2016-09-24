@@ -8,6 +8,7 @@ import {
 import HomePage from './views/homePage';
 import Map from './views/map';
 import Realm from 'realm';
+import pastMemories from './views/pastMemories'
 
 class Amnesia extends Component {
 
@@ -24,6 +25,7 @@ class Amnesia extends Component {
     const routes = [
       {component: HomePage},
       {component: Map},
+      {component: pastMemories},
     ];
     return (
       <Navigator

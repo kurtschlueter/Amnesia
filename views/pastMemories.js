@@ -6,32 +6,32 @@ import {
   StyleSheet
 } from 'react-native';
 
-import Map from './map';
-import pastMemories from './pastMemories';
-
-export default class HomePage extends Component {
+export default class pastMemories extends Component {
 
   componentDidMount() {
-    console.log('------------------didHOME-------------------')
+    console.log('------------------didpastMemories-------------------')
   }
 
-  goToMap() {
-    this.props.navigator.jumpForward(1);
+  componentWillUnmount() {
+    console.log('------------------removedpastMemories---------------')
+  }
+
+  goBack() {
+    this.props.navigator._jumpN(-2);
   }
 
   pastMemories() {
-    this.props.navigator._jumpN(2);
-    console.log(this.props.navigator.getCurrentRoutes());
+    console.log('s');
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <TouchableHighlight style={styles.button} onPress={() => this.goToMap()}>
-          <Text>Map</Text>
+        <TouchableHighlight style={styles.button} onPress={() => this.goBack()}>
+          <Text>Back</Text>
         </TouchableHighlight>
-        <TouchableHighlight style={styles.button} onPress={() => this.pastMemories()}>
-          <Text>Past Memories</Text>
+        <TouchableHighlight style={styles.button} onPress={() => console.log(this.props.navigator.getCurrentRoutes())}>
+          <Text>Show Current Routes</Text>
         </TouchableHighlight>
       </View>
     );
