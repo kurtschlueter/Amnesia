@@ -39,5 +39,9 @@ RealmObjects.saveMemory = function(coordinates, description) {
     });
 }
 
+RealmObjects.countMemories = function() {
+  return realm.objects('Memory').length;
+}
+
 import Realm from 'realm';
 let realm = new Realm({schema: [RealmObjects.MemorySchema, RealmObjects.CoordinateSchema]});

@@ -21,7 +21,6 @@ export default class HomePage extends Component {
 
   pastMemories() {
     this.props.navigator._jumpN(2);
-    console.log(this.props.navigator.getCurrentRoutes());
   }
 
   render() {
