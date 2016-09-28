@@ -40,7 +40,8 @@ RealmObjects.saveMemory = function(coordinates, description) {
 }
 
 RealmObjects.countMemories = function() {
-  return realm.objects('Memory').length;
+  console.log(realm.objects('Memory'));
+  return realm.objects('Memory');
 }
 
 import Realm from 'realm';
