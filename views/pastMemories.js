@@ -39,6 +39,15 @@ export default class pastMemories extends Component {
     console.log(this.state.dataSource)
   }
 
+  renderRow(rowData) {
+    console.log('my data');
+    console.log(rowData.description);
+
+    return (
+        <Text>{rowData.description}</Text>
+    );
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -47,7 +56,7 @@ export default class pastMemories extends Component {
         </TouchableHighlight>
         <ListView style={styles.listview}
           dataSource={this.state.dataSource}
-          renderRow={(rowData) => <Text>something: {rowData.description}</Text>}
+          renderRow={(rowData) => this.renderRow(rowData)}
         />
       </View>
     );
