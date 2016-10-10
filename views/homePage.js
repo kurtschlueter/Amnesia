@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 
 import Map from './map';
+import pastMemories from './pastMemories';
 
 export default class HomePage extends Component {
 
@@ -18,8 +19,8 @@ export default class HomePage extends Component {
     this.props.navigator.jumpForward(1);
   }
 
-  pastMemories() {
-    console.log('s');
+  goToPastMemories() {
+    this.props.navigator.replace({component: pastMemories});
   }
 
   render() {
@@ -28,7 +29,7 @@ export default class HomePage extends Component {
         <TouchableHighlight style={styles.button} onPress={() => this.goToMap()}>
           <Text>Map</Text>
         </TouchableHighlight>
-        <TouchableHighlight style={styles.button} onPress={() => this.pastMemories()}>
+        <TouchableHighlight style={styles.button} onPress={() => this.goToPastMemories()}>
           <Text>Past Memories</Text>
         </TouchableHighlight>
       </View>
