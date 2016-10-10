@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
   },
   listview: {
     top: 100,
+    backgroundColor: 'rgba(236,64,122,0.7)',
   },
   container: {
     flex: 1,
