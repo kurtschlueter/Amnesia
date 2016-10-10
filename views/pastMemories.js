@@ -35,8 +35,8 @@ export default class pastMemories extends Component {
     this.state = {
       dataSource: ds.cloneWithRows(RealmObjects.countMemories()),
     };
-    console.log('datasource')
-    console.log(this.state.dataSource)
+    // console.log('datasource')
+    // console.log(this.state.dataSource)
   }
 
   renderRow(rowData) {

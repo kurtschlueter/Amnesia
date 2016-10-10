@@ -18,8 +18,8 @@ RealmObjects.CoordinateSchema = {
 
 RealmObjects.saveMemory = function(coordinates, description) {
   console.log('---------------realm write-------------')
-  console.log(description)
-  console.log(coordinates)
+  // console.log(description)
+  // console.log(coordinates)
     realm.write(() => {
       let memory = realm.create('Memory', {
         description: description,
@@ -27,20 +27,20 @@ RealmObjects.saveMemory = function(coordinates, description) {
       });
       let coordList = memory.coords
       for (var i = 0; i < coordinates.length; i++) {
-        console.log(i)
-              console.log(coordinates[i].timeStamp)
+        // console.log(i)
+              // console.log(coordinates[i].timeStamp)
 
         coordList.push({longitude: coordinates[i].longitude,
           latitude: coordinates[i].latitude,
          timeStamp: coordinates[i].timeStamp});
-        console.log(memory.coords[i].timeStamp)
+        // console.log(memory.coords[i].timeStamp)
       }
 
     });
 }
 
 RealmObjects.countMemories = function() {
-  console.log(realm.objects('Memory'));
+  // console.log(realm.objects('Memory'));
   return realm.objects('Memory');
 }
 
