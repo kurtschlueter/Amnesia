@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 import { ListView } from 'realm/react-native';
-
+import HomePage from './homePage';
 
 import RealmObjects from '../realm/objects';
 
@@ -22,7 +22,7 @@ export default class pastMemories extends Component {
   }
 
   goBack() {
-    this.props.navigator._jumpN(-2);
+    this.props.navigator.replace({component: HomePage});
   }
 
   pastMemories() {

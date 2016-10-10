@@ -8,7 +8,6 @@ import {
 
 import Map from './map';
 import pastMemories from './pastMemories';
-import listTest from './listTest';
 
 export default class HomePage extends Component {
 
@@ -21,11 +20,7 @@ export default class HomePage extends Component {
   }
 
   pastMemories() {
-    this.props.navigator._jumpN(2);
-  }
-
-  listTest() {
-    this.props.navigator._jumpN(3);
+    this.props.navigator.replace({component: pastMemories});
   }
 
   render() {
@@ -36,9 +31,6 @@ export default class HomePage extends Component {
         </TouchableHighlight>
         <TouchableHighlight style={styles.button} onPress={() => this.pastMemories()}>
           <Text>Past Memories</Text>
-        </TouchableHighlight>
-        <TouchableHighlight style={styles.button} onPress={() => this.listTest()}>
-          <Text>List Test</Text>
         </TouchableHighlight>
       </View>
     );
