@@ -8,10 +8,17 @@ import {
 
 import { ListView } from 'realm/react-native';
 import HomePage from './homePage';
-
 import RealmObjects from '../realm/objects';
 
 export default class pastMemories extends Component {
+
+  constructor() {
+    super();
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.state = {
+      dataSource: ds.cloneWithRows(RealmObjects.countMemories()),
+    };
+  }
 
   componentDidMount() {
     console.log('------------------didpastMemories-------------------')
@@ -21,22 +28,12 @@ export default class pastMemories extends Component {
     console.log('------------------removedpastMemories---------------')
   }
 
-  goBack() {
+  goHome() {
     this.props.navigator.replace({component: HomePage});
   }
 
-  pastMemories() {
-    console.log('s');
-  }
-
-  constructor() {
-    super();
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.state = {
-      dataSource: ds.cloneWithRows(RealmObjects.countMemories()),
-    };
-    // console.log('datasource')
-    // console.log(this.state.dataSource)
+  goToMemory(memory) {
+    console.log(memory.description);
   }
 
   renderRow(rowData) {
@@ -44,15 +41,17 @@ export default class pastMemories extends Component {
     console.log(rowData.description);
 
     return (
-        <Text>{rowData.description}</Text>
+        <TouchableHighlight style={styles.button} onPress={() => this.goToMemory(rowData)}>
+          <Text>{rowData.description}</Text>
+        </TouchableHighlight>
     );
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <TouchableHighlight style={styles.buttonLeft} onPress={() => this.goBack()}>
-          <Text>Back</Text>
+        <TouchableHighlight style={styles.buttonLeft} onPress={() => this.goHome()}>
+          <Text>Home</Text>
         </TouchableHighlight>
         <ListView style={styles.listview}
           dataSource={this.state.dataSource}
@@ -73,13 +72,13 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   listview: {
-    top: 100,
+    top: 50,
     backgroundColor: 'rgba(236,64,122,0.7)',
   },
   container: {
     flex: 1,
     flexDirection: 'column',
-    marginTop: 60,
+    marginTop: 20,
   },
   buttonRight: {
     position: 'absolute',

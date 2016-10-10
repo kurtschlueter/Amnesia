@@ -19,7 +19,7 @@ export default class HomePage extends Component {
     this.props.navigator.jumpForward(1);
   }
 
-  pastMemories() {
+  goToPastMemories() {
     this.props.navigator.replace({component: pastMemories});
   }
 
@@ -29,7 +29,7 @@ export default class HomePage extends Component {
         <TouchableHighlight style={styles.button} onPress={() => this.goToMap()}>
           <Text>Map</Text>
         </TouchableHighlight>
-        <TouchableHighlight style={styles.button} onPress={() => this.pastMemories()}>
+        <TouchableHighlight style={styles.button} onPress={() => this.goToPastMemories()}>
           <Text>Past Memories</Text>
         </TouchableHighlight>
       </View>
