@@ -16,7 +16,7 @@ class Amnesia extends Component {
   }
 
   renderScene(route, navigator){
-    return <route.component navigator={navigator}/>;
+    return <route.component {...route.passProps} navigator={navigator}/>;
   }
 
   render() {

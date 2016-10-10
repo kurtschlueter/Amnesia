@@ -8,6 +8,7 @@ import {
 
 import { ListView } from 'realm/react-native';
 import HomePage from './homePage';
+import specificMemory from './specificMemory';
 import RealmObjects from '../realm/objects';
 
 export default class pastMemories extends Component {
@@ -33,6 +34,12 @@ export default class pastMemories extends Component {
   }
 
   goToMemory(memory) {
+    this.props.navigator.replace({
+      component: specificMemory,
+      passProps: {
+        memoryData: memory
+      }
+    });
     console.log(memory.description);
   }
 
